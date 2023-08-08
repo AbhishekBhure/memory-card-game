@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import GameDisplay from "./GameDisplay";
 import arrayShuffle from "array-shuffle";
 
-const types = ["❤", "♋", "🕉", "💥", "👦", "🤩", "🌮", "🛺"];
+const types = ["❤", "🌝", "🕉", "💥", "👦", "🤩", "🌮", "🛺"];
 const getGameData = () => {
   //get types and load the types in an new array x2(as an object)
   const gameData = [];
@@ -26,7 +26,21 @@ const getGameData = () => {
 };
 const GameContainer = () => {
   const [cards, setCards] = useState(getGameData());
-  return <GameDisplay cards={cards} />;
+
+  const handleOnClick = (id) => () => {
+    //find the card
+    //set the open true or false
+    const updatedCards = [...cards];
+
+    updatedCards.forEach((card) => {
+      if (card.id === id) {
+        card.open = true;
+      }
+    });
+
+    setCards(updatedCards);
+  };
+  return <GameDisplay cards={cards} onClick={handleOnClick} />;
 };
 
 export default GameContainer;

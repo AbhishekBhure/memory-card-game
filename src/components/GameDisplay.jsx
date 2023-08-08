@@ -1,32 +1,17 @@
 import React from "react";
-import { Grid, Box, Paper } from "@mui/material";
-import ReactCardFlip from "react-card-flip";
-
-const GameDisplay = ({ cards }) => {
+import { Grid } from "@mui/material";
+import CardComponent from "./CardComponent";
+const GameDisplay = ({ cards, index, onClick }) => {
+  const handleClick = () => {};
   return (
-    <Grid container>
-      <Grid item xs={3}>
-        <ReactCardFlip isFlipped={true}>
-          <Paper>
-            <Box
-              sx={{ height: 100, cursor: "pointer", background: "gray" }}
-              display="flex"
-              justifyContent="space-around"
-            />
-          </Paper>
-          <Paper>
-            <Box
-              sx={{ height: 100, cursor: "pointer", background: "gray" }}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              🛺
-            </Box>
-          </Paper>
-        </ReactCardFlip>
-      </Grid>
-      <Grid item></Grid>
+    <Grid container spacing={1}>
+      {cards.map((card) => {
+        return (
+          <Grid item xs={3}>
+            <CardComponent card={card} index={index} onClick={onClick} />
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };
