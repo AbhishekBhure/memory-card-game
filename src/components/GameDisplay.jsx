@@ -5,18 +5,24 @@ import ReactCardFlip from "react-card-flip";
 const GameDisplay = ({ cards }) => {
   return (
     <Grid container>
-      <Grid item>
-        <ReactCardFlip isFlipped={false}>
+      <Grid item xs={3}>
+        <ReactCardFlip isFlipped={true}>
           <Paper>
             <Box
               sx={{ height: 100, cursor: "pointer", background: "gray" }}
               display="flex"
-            >
-              Front
-            </Box>
+              justifyContent="space-around"
+            />
           </Paper>
           <Paper>
-            <Box>Back</Box>
+            <Box
+              sx={{ height: 100, cursor: "pointer", background: "gray" }}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              🛺
+            </Box>
           </Paper>
         </ReactCardFlip>
       </Grid>
