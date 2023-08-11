@@ -26,35 +26,39 @@ const getGameData = () => {
 };
 const GameContainer = () => {
   const [cards, setCards] = useState(getGameData());
-
   const [inPlay, setInPlay] = useState([]);
+  const [matching, setMatching] = useState(false);
+  const [score, setScore] = useState(0);
+  const [moves, setMoves] = useState(0);
 
   //inplay -- array of 2 cards
 
   const handleOnClick = (id) => () => {
-    //find the card
-    //set the open true or false
-    const updatedCards = [...cards];
+    if (!matching) {
+      //find the card
+      //set the open true or false
+      const updatedCards = [...cards];
 
-    const updatedInPlay = [...inPlay];
+      const updatedInPlay = [...inPlay];
 
-    updatedCards.forEach((card) => {
-      if (card.id === id) {
-        card.open = true;
-        updatedInPlay.push(card.type);
-        setInPlay(updatedInPlay);
-      }
-    });
+      updatedCards.forEach((card) => {
+        if (card.id === id) {
+          card.open = true;
+          updatedInPlay.push(card.type);
+          setInPlay(updatedInPlay);
+        }
+      });
 
-    setCards(updatedCards);
-
-    // update inplay state - 1,2
+      setCards(updatedCards);
+      // update inplay state - 1,2
+    }
   };
 
   useEffect(() => {
-    console.log("match time", inPlay.length);
     //inplay == length is 2?
-    if (inPlay.length === 2) {
+    if (inPlay.length === 2 && !matching) {
+      setMoves(moves + 1);
+      setMatching(true);
       const updatedCards = [...cards];
       //type of card1 === type of card2
       //match
@@ -64,16 +68,23 @@ const GameContainer = () => {
             card.remove = true;
           }
         });
+        setCards(updatedCards);
+        setMatching(false);
+        setScore(score + 1);
+        setInPlay([]);
       } else {
         //no-match
-        updatedCards.forEach((card) => {
-          if (card.type === inPlay[0] || card.type === inPlay[1]) {
-            card.open = false;
-          }
-        });
+        setTimeout(() => {
+          updatedCards.forEach((card) => {
+            if (card.type === inPlay[0] || card.type === inPlay[1]) {
+              card.open = false;
+            }
+          });
+          setCards(updatedCards);
+          setMatching(false);
+          setInPlay([]);
+        }, 1000);
       }
-      setCards(updatedCards);
-      setInPlay([]);
     }
     //remove these cards (keep them open)
     //score increment score++
@@ -81,7 +92,14 @@ const GameContainer = () => {
     //no op
   });
 
-  return <GameDisplay cards={cards} onClick={handleOnClick} />;
+  return (
+    <GameDisplay
+      cards={cards}
+      onClick={handleOnClick}
+      score={score}
+      moves={moves}
+    />
+  );
 };
 
 export default GameContainer;
