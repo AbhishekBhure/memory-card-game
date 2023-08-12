@@ -54,6 +54,20 @@ const GameContainer = () => {
     }
   };
 
+  const handleReset = () => {
+    setScore(0);
+    setMoves(0);
+    const resetCards = cards.map((card) => ({
+      ...card,
+      open: false,
+      remove: false,
+    }));
+    setCards(resetCards);
+    setTimeout(() => {
+      setCards(getGameData);
+    }, 1000);
+  };
+
   useEffect(() => {
     //inplay == length is 2?
     if (inPlay.length === 2 && !matching) {
@@ -96,6 +110,7 @@ const GameContainer = () => {
     <GameDisplay
       cards={cards}
       onClick={handleOnClick}
+      onReset={handleReset}
       score={score}
       moves={moves}
     />

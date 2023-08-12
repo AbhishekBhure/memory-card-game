@@ -1,8 +1,7 @@
 import React from "react";
 import { Grid, Container, Box, Button } from "@mui/material";
 import CardComponent from "./CardComponent";
-const GameDisplay = ({ cards, onClick, moves, score }) => {
-  const handleClick = () => {};
+const GameDisplay = ({ cards, onClick, moves, score, onReset }) => {
   return (
     <Grid container spacing={1}>
       {cards.map((card) => {
@@ -34,7 +33,7 @@ const GameDisplay = ({ cards, onClick, moves, score }) => {
           >
             Moves: {moves}
           </Box>
-          <Button>Start Over</Button>
+          <Button onClick={onReset}>Start Over</Button>
           <Box
             sx={{
               display: "flex",
