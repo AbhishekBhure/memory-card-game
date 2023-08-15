@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import GameDisplay from "./GameDisplay";
 import arrayShuffle from "array-shuffle";
+import useSound from "use-sound";
+import cardFlipSound from "../sounds/cardFilp.wav";
+import resetSound from "../sounds/reset.wav";
+import scoreSound from "../sounds/score.wav";
 
 const types = ["❤", "🌝", "🕉", "💥", "👦", "🤩", "🌮", "🛺"];
 const getGameData = () => {
@@ -30,6 +34,9 @@ const GameContainer = () => {
   const [matching, setMatching] = useState(false);
   const [score, setScore] = useState(0);
   const [moves, setMoves] = useState(0);
+  const [playFlipSound] = useSound(cardFlipSound);
+  const [playResetSound] = useSound(resetSound);
+  const [playScoreSound] = useSound(scoreSound);
 
   //inplay -- array of 2 cards
 
@@ -44,6 +51,7 @@ const GameContainer = () => {
       updatedCards.forEach((card) => {
         if (card.id === id) {
           card.open = true;
+          playFlipSound();
           updatedInPlay.push(card.type);
           setInPlay(updatedInPlay);
         }
@@ -62,6 +70,7 @@ const GameContainer = () => {
       open: false,
       remove: false,
     }));
+    playResetSound();
     setCards(resetCards);
     setTimeout(() => {
       setCards(getGameData);
@@ -80,6 +89,7 @@ const GameContainer = () => {
         updatedCards.forEach((card) => {
           if (card.type === inPlay[0]) {
             card.remove = true;
+            playScoreSound();
           }
         });
         setCards(updatedCards);
