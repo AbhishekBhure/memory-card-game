@@ -8,12 +8,20 @@ function App() {
     <div>
       <Grid container={true}>
         <Grid item xs={12} sx={{ textAlign: "center", margin: "auto" }}>
-          <Box sx={{ padding: "16px" }}>
+          <Box
+            sx={{
+              padding: "16px",
+            }}
+          >
             <Typography variant="h4" align="center">
               <img
                 src={logo}
                 alt="logo"
-                style={{ width: "30px", height: "30px" }}
+                style={{
+                  width: "30px",
+                  height: "26px",
+                  paddingRight: "5px",
+                }}
               />
               Memory Card
             </Typography>
