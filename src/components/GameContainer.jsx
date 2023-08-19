@@ -6,7 +6,7 @@ import cardFlipSound from "../sounds/cardFilp.wav";
 import resetSound from "../sounds/reset.wav";
 import scoreSound from "../sounds/score.wav";
 
-const types = ["❤", "🌝", "🕉", "💥", "👦", "🤩", "🌮", "🛺"];
+const types = ["❤", "🌝", "🚀", "💥", "👦", "🤩", "🌮", "🛺"];
 const getGameData = () => {
   //get types and load the types in an new array x2(as an object)
   const gameData = [];
